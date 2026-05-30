@@ -1,0 +1,76 @@
+# Task 1: Data Modeling & ERD Design 
+
+## 1. Entities and Attributes
+
+### `companies` (PAC)
+* **company_id** (INTEGER, Primary Key, Auto-increment): Unique identifier for each company.
+* **company_name** (TEXT, Unique, Not Null): Name of the Production Asset Company (e.g., PCSB, VESTIGO).
+
+### `regions`
+* **region_id** (INTEGER, Primary Key, Auto-increment): Unique identifier for each geographic region.
+* **region_name** (TEXT, Unique, Not Null): Name of the region (e.g., PM, SK, SB).
+
+### `fields`
+* **field_id** (INTEGER, Primary Key, Auto-increment): Unique identifier for each oil/gas field.
+* **region_id** (INTEGER, Foreign Key): References `regions(region_id)`.
+* **field_name** (TEXT, Not Null): Name of the field (e.g., ANGSI, BAYAN).
+* **water_depth** (REAL): Water depth in meters.
+
+### `rigs`
+* **rig_id** (INTEGER, Primary Key, Auto-increment): Unique identifier for each drilling rig.
+* **rig_name** (TEXT, Unique, Not Null): Name of the rig.
+* **rig_type** (TEXT): Type of rig (e.g., JACK UP, SEMI-SUB).
+
+### `wells`
+* **well_id** (INTEGER, Primary Key, Auto-increment): Unique identifier for each well.
+* **field_id** (INTEGER, Foreign Key): References `fields(field_id)`.
+* **company_id** (INTEGER, Foreign Key): References `companies(company_id)`.
+* **well_name** (TEXT, Not Null): Unique well identifier string.
+* **well_type** (TEXT): Operational type of the well.
+
+### `reports`
+* **report_id** (INTEGER, Primary Key, Auto-increment): Unique identifier for each document submission.
+* **well_id** (INTEGER, Foreign Key): References `wells(well_id)`.
+* **report_type** (TEXT): Type of report (e.g., NOOP, FWR).
+* **document_name** (TEXT): Filename of the associated document.
+* **document_date** (TEXT): Date of document issuance.
+* **submitted_at** (TEXT): Submission timestamp.
+* **submitted_by** (TEXT): Username of the submitter.
+
+### `well_operations`
+* **operation_id** (INTEGER, Primary Key, Auto-increment): Unique identifier for operational metrics.
+* **well_id** (INTEGER, Foreign Key): References `wells(well_id)`.
+* **rig_id** (INTEGER, Foreign Key): References `rigs(rig_id)`.
+* **year** (INTEGER): Year of operation.
+* **afe_cost** (REAL): Planned authorization for expenditure cost.
+* **afe_days** (INTEGER): Planned days.
+* **spud_date** (TEXT): Well spud date.
+* **well_start_datetime** (TEXT): Commencement timestamp.
+* **well_end_datetime** (TEXT): Completion timestamp.
+* **final_cost** (REAL): Actual final cost.
+* **final_days** (INTEGER): Actual days taken.
+* **well_npt_percentage_wow** (REAL): Week-over-week Non-Productive Time percentage.
+* **well_npt_percentage** (REAL): Total Non-Productive Time percentage.
+* **completion_cost_plan** (REAL): Planned completion cost.
+* **completion_cost_actual** (REAL): Actual completion cost.
+* **drilling_plan_wcpf** (REAL): Planned WCPF metrics.
+* **drilling_actual_wcpf** (REAL): Actual WCPF metrics.
+
+---
+
+## 2. Relationships and Cardinality
+
+1.  **`regions` to `fields`** (1:N): One region can contain multiple fields; a field belongs to exactly one region.
+2.  **`fields` to `wells`** (1:N): One oil/gas field contains multiple wells; each well is drilled in one specific field.
+3.  **`companies` to `wells`** (1:N): One PAC can operate multiple wells; a well has one operator.
+4.  **`wells` to `reports`** (1:N): One well can generate multiple progress or daily reports over its lifecycle.
+5.  **`wells` to `well_operations`** (1:1): Each well tracked represents a single specific operational drilling/completion campaign.
+6.  **`rigs` to `well_operations`** (1:N): One drilling rig can work across multiple well operations campaigns sequentially.
+
+---
+
+## 3. Normalization Decisions (3NF Compliance)
+
+* **1st Normal Form (1NF):** All attributes contain atomic (single) values. No repeating groups or arrays exist.
+* **2nd Normal Form (2NF):** Extracted standalone entities (`companies`, `regions`, `fields`, `rigs`, `wells`) to ensure all non-key columns depend completely on the primary key of their respective tables, eliminating partial dependencies.
+* **3rd Normal Form (3NF):** Removed transitive dependencies. For instance, `RegionName` was dependent on `FieldName`, which in turn depended on `WellName`. By breaking this down into separate tables linked by Foreign Keys (`wells` -> `fields` -> `regions`), we guarantee that no non-key field depends on another non-key field.
