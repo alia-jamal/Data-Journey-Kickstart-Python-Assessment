@@ -45,5 +45,3 @@ This means:
 ## 4. Key Design Decision
 
 Instead of forcing strict uniqueness at field or well level, the design intentionally keeps PAC as part of the grain of the dataset.
-
-### Data Grain Definition:
