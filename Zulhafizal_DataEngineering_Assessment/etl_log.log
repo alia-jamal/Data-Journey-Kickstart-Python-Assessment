@@ -1,0 +1,19 @@
+2026-06-01 19:43:35,135 - INFO - ETL process started
+2026-06-01 19:43:35,185 - INFO - Extracted 138 rows from ../data/DataForAssessment.csv
+2026-06-01 19:43:35,304 - INFO - Data cleaned (RigName, RigType, WellName standardized)
+2026-06-01 19:43:35,308 - INFO - Optional metrics handled (NULL preserved + flags added)
+2026-06-01 19:43:35,323 - INFO - Dimension tables created (WELLS enriched with timeline data)
+2026-06-01 19:43:35,327 - INFO - Fact tables created
+2026-06-01 19:43:35,334 - INFO - Database connected
+2026-06-01 19:43:35,345 - INFO - PAC loaded
+2026-06-01 19:43:35,347 - INFO - Regions loaded
+2026-06-01 19:43:35,355 - INFO - Fields loaded
+2026-06-01 19:43:35,390 - INFO - Wells loaded
+2026-06-01 19:43:35,394 - INFO - Rigs loaded
+2026-06-01 19:43:35,429 - INFO - Reports loaded
+2026-06-01 19:43:35,447 - INFO - Drilling operations loaded
+2026-06-01 19:43:35,452 - INFO - Duplicates: 0
+2026-06-01 19:43:35,454 - INFO - Null WellName: 0
+2026-06-01 19:43:35,456 - INFO - Invalid date rows: 0
+2026-06-01 19:43:35,476 - INFO - DB connection closed
+2026-06-01 19:43:35,476 - INFO - ETL completed successfully

@@ -42,9 +42,9 @@ The assessment uses the dataset located at:
 
 ## Submission
 
-1. When complete, compress your Assessment folder into:
-```YourName_DataEngineering_Assessment``` folder
-2. Include all files listed in the Assessment Instructions.
+1. When complete, compile your Assessment working files into:
+```YourName_Python_Assessment``` folder
+2. Include all files listed in the **Assessment_Instructions.md**.
 3. Upload your assessment into your own branch in this GitHub repository:
 [Data-Journey-Kickstart-Python-Assessment](https://github.com/alia-jamal/Data-Journey-Kickstart-Python-Assessment.git)
 
